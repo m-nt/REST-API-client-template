@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "{{ cookiecutter.project_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{cookiecutter.project_short_description}}"
+authors = ["{{ cookiecutter.author }} <{{ cookiecutter.email }}>"]
+
+[tool.poetry.dependencies]
+python = "^{{ cookiecutter.python_version }}"
+httpx = "^{{ cookiecutter.httpx_version }}"
+pydantic = "^{{ cookiecutter.pydantic_version }}"
+
+[tool.poetry.dev-dependencies]
+pytest = "7.2.0"
+pytest-asyncio = "0.20.3"
+black = "22.12.0"
+poethepoet = "0.16.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+rundev = "uvicorn {{ cookiecutter.resource_name }}_service.app:app --host 0.0.0.0 --port 8000 --reload"
+format = "black ."

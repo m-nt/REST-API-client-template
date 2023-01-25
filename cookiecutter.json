@@ -1,0 +1,22 @@
+{
+    "author": "Mohamad nosratian",
+    "email": "mohn.info@gmail.com",
+    "poetry_source_name": "source-name",
+    "poetry_source_address": "https://pypi.<domain>.ir/simple/",
+    "resource_name": "resource",
+    "project_name": "{{cookiecutter.resource_name}}-library",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "a server to manager {{ cookiecutter.project_slug }}.",
+    "version": "0.1.0",
+    "open_source_license": [
+        "MIT",
+        "BSD",
+        "ISCL",
+        "Apache Software License 2.0",
+        "Not open source"
+    ],
+    "python_version": "3.9",
+    "httpx_version": "0.23.3",
+    "pydantic_version": "1.10.4",
+    "number_of_workers": 2
+}
