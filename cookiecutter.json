@@ -4,12 +4,14 @@
     "poetry_source_name": "source-name",
     "poetry_source_address": "https://pypi.<domain>.ir/simple/",
     "resource_name": "resource",
-    "project_name": "{{cookiecutter.resource_name}}-library",
+    "project_name": "{{cookiecutter.resource_name}}-client",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "project_short_description": "a server to manager {{ cookiecutter.project_slug }}.",
     "version": "0.1.0",
     "python_version": "3.9",
+    "fastapi_version": "0.89.0",
     "httpx_version": "0.23.3",
     "pydantic_version": "1.10.4",
+    "typing_version": "3.0.0",
     "number_of_workers": 2
 }

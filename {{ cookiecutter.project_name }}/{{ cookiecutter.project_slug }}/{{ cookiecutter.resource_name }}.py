@@ -1,23 +1,20 @@
-"""
-The MIT License (MIT)
+from typing import Any
+from {{ cookiecutter.project_slug }}.handlers.{{ cookiecutter.resource_name }} import Handler
+from urllib.parse import urljoin
 
-Copyright (c) 2016 Rémy
+class {{ cookiecutter.resource_name.capitalize() }}:
+    handler: Handler
+    api_url: str
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    def __init__(self, _handler: Handler, _api_url: str):
+        self.api_url = _api_url
+        self.handler = _handler
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    async def get_{{ cookiecutter.resource_name }}(self, token: str) -> Any:
+        return await self.handler._send_request(
+            method="GET",
+            url=urljoin(self.api_url, "/{{ cookiecutter.resource_name }}"),
+            headers={"Authorization": f"Bearer {token}"},
+        )
+    # TODO: add the rest of the {{ cookiecutter.resource_name }} request methods
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
