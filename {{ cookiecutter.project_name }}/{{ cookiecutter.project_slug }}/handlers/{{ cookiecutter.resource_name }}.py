@@ -12,6 +12,19 @@ HEADERS = {"accept": "application/json", "Content-Type": "application/json"}
 
 class Handler:
     @staticmethod
+    def get_response_message(response: Response) -> Any:
+        try:
+            data = response.json()
+        except Exception as e:
+            return {"message": "Unknown error"}
+        if "detail" in data:
+            return data["detail"]
+        if "content" in data:
+            return data["content"]
+        if "message" in data:
+            return data
+        
+    @staticmethod
     async def _send_request(
         method: RequestMethod,
         url: str,
@@ -52,7 +65,7 @@ class Handler:
             raise HTTPException(
                 status_code=res.status_code,
                 detail={
-                    "message": res.__dict__.get("message"),
+                    "message": Handler.get_response_message(res),
                 },
             )
         return res.json()
