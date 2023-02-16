@@ -30,6 +30,7 @@ class Handler:
         url: str,
         parameters: Optional[dict] = None,
         content: Optional[str] = None,
+        json: Optional[dict] = None,
         headers: Optional[dict] = None,
         timeout: Optional[int] = 5,
     ) -> Union[Any, dict]:
@@ -49,6 +50,7 @@ class Handler:
             url=url,
             params=_params,
             content=content,
+            json=json,
             headers=_headers,
         )
         try:
