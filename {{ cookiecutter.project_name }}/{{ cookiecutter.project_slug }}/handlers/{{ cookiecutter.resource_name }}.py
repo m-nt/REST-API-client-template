@@ -58,7 +58,7 @@ class Handler:
                 res: Response = await client.send(_request)
         except Exception as error:
             raise HTTPException(
-                status_code=res.status_code,
+                status_code=500,
                 detail={
                     "message": str(type(error))[8:-2],
                 },
