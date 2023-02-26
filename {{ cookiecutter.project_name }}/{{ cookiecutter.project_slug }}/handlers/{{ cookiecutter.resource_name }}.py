@@ -9,8 +9,20 @@ from {{ cookiecutter.project_slug }}.models.{{ cookiecutter.resource_name }} imp
 
 HEADERS = {"accept": "application/json", "Content-Type": "application/json"}
 
+message_regex = r"(?<=message[\"']:[\"'])[a-zA-Z0-9 _\-]+|(?<=msg[\"']:[\"'])[a-zA-Z0-9 _\-]+|(?<=message[\"']: [\"'])[a-zA-Z0-9 _\-]+|(?<=msg[\"']: [\"'])[a-zA-Z0-9 _\-]+|(?<=detail[\"']:[\"'])[a-zA-Z0-9 _\-]+|(?<=detail[\"']: [\"'])[a-zA-Z0-9 _\-]+"
+
 
 class Handler:
+    @staticmethod
+    def get_response_message_v2(response: Response) -> Any:
+        matches = re.findall(message_regex, response.text)
+        if len(matches) > 0:
+            msg = [msg for msg in matches]
+            return {"message": ", ".join(msg[:])}
+        else:
+            if len(response.text) > 3 and isinstance(response.text, str):
+                return {"message": response.text}
+            return {"message": "Unknown error"}
     @staticmethod
     def get_response_message(response: Response) -> Any:
         try:
@@ -67,7 +79,7 @@ class Handler:
             raise HTTPException(
                 status_code=res.status_code,
                 detail={
-                    "message": Handler.get_response_message(res),
+                    "message": Handler.get_response_message_v2(res),
                 },
             )
         return res.json()
